@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Standard colors START-->
+
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="fuchsia">#FF00FF</color>
+    <color name="red">#FF0000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="gray">#808080</color>
+    <color name="olive">#808000</color>
+    <color name="purple">#800080</color>
+    <color name="maroon">#800000</color>
+    <color name="aqua">#00FFFF</color>
+    <color name="lime">#00FF00</color>
+    <color name="teal">#008080</color>
+    <color name="green">#008000</color>
+    <color name="blue">#0000FF</color>
+    <color name="navy">#000080</color>
+    <color name="black">#000000</color>
+
+    <!--Standard colors END-->
+
+    <!--Android Themed Colors START-->
+
+    <color name="darkAndroidBlue">#0099CC</color>
+    <color name="standardAndroidBlue">#33B5E5</color>
+
+    <color name="darkAndroidPurple">#80AA66CC</color>
+    <color name="standardAndroidPurple">#809933CC</color>
+
+    <color name="darkAndroidRed">#80FF4444</color>
+    <color name="standardAndroidRed">#80CC0000</color>
+
+    <color name="darkAndroidOrange">#80FFBB33</color>
+    <color name="standardAndroidOrange">#80FF8800</color>
+
+    <color name="standardAndroidBlueTransparent">#3333B5E5</color>
+
+    <!--Android Themed Colors END-->
+
+</resources>

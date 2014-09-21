@@ -21,27 +21,34 @@ import butterknife.InjectView;
 /**
  * Created by erikkamp on 8/31/14.
  */
-public class CurrentFragment extends Fragment{
+public class WeatherFragment extends Fragment{
 
     @InjectView(R.id.weatherIcon)
     ImageView weatherIcon;
 
-    @InjectView(R.id.temperature)
-    TextView temperature;
+    @InjectView(R.id.Lowtemperature)
+    TextView lowTemperature;
+
+    @InjectView(R.id.Highttemperature)
+    TextView highTemperature;
 
     @InjectView(R.id.weather)
     TextView weatherText;
 
-    private String minTemp,maxTemp,currentTemp,icon,weather;
+    @InjectView(R.id.dayOfTheWeek)
+    TextView dayOfTheWeekText;
 
-    public static CurrentFragment create(DayWeather weather) {
-        CurrentFragment fragment = new CurrentFragment();
+    private String minTemp,maxTemp,currentTemp,icon,weather,dayOfTheWeek;
+
+    public static WeatherFragment create(DayWeather weather) {
+        WeatherFragment fragment = new WeatherFragment();
         Bundle args = new Bundle();
         args.putString("minTemp",weather.getTempMin());
         args.putString("maxTemp",weather.getTempMax());
         args.putString("currentTemp",weather.getCurrentTemp());
         args.putString("icon",weather.getWeatherIcon());
         args.putString("weather",weather.getWeather());
+        args.putString("day",weather.getDayOfWeek());
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,6 +61,7 @@ public class CurrentFragment extends Fragment{
         currentTemp = getArguments().getString("currentTemp");
         icon = getArguments().getString("icon");
         weather = getArguments().getString("weather");
+        dayOfTheWeek = getArguments().getString("day");
     }
 
     @Override
@@ -62,21 +70,22 @@ public class CurrentFragment extends Fragment{
         ButterKnife.inject(this, root);
 
         /*VIEW SETUP START */
-        temperature.setText(currentTemp);
+
+        lowTemperature.setText(minTemp);
+        highTemperature.setText(maxTemp);
         weatherText.setText(weather);
+        dayOfTheWeekText.setText(dayOfTheWeek);
 
-        Log.e("weather information ", currentTemp + " " + weather + " " + Controller.getControllerInstance().getWeatherIconURL(icon));
-
-        Picasso.with(getActivity()).load(Controller.getControllerInstance().getWeatherIconURL(icon)).placeholder(R.drawable.grey_placeholder).error(R.drawable.grey_placeholder).fit().into(weatherIcon, new Callback() {
+        Picasso.with(getActivity()).load(Controller.getControllerInstance().getWeatherIconURL(icon)).placeholder(R.drawable.weather_placeholder).error(R.drawable.weather_placeholder).fit().into(weatherIcon, new Callback() {
             @Override
             public void onSuccess() {
-                Log.e("Weather Request for image", "Successful");
+                Log.e(getClass().getName(), "Picasso Successful");
             }
 
             @Override
             public void onError() {
 
-                Log.e("Weather Request for image", "Not completed");
+                Log.e(getClass().getName(), "Picasso ERROR : Not completed");
             }
         });
 

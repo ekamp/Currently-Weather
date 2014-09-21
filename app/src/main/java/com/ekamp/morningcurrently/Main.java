@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.FrameLayout;
 
-import com.ekamp.morningcurrently.Fragments.CurrentFragment;
+import com.ekamp.morningcurrently.Fragments.WeatherFragment;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import Controller.Controller;
 import Model.CommuteData;
 import Model.DayWeather;
-import butterknife.InjectView;
 
 public class Main extends Activity {
 
@@ -23,7 +21,7 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Controller.getControllerInstance().collectForecastInformation("Shrewsbury,NJ");
-        Controller.getControllerInstance().collectCurrentWeatherInformation("Shrewsbury,NJ");
+//        Controller.getControllerInstance().collectCurrentWeatherInformation("Shrewsbury,NJ");
         Controller.getControllerInstance().getCurrentCommute("148+Spruce+Drive+Shrewsbury+NJ+07702","15+Corporate+Place+Piscataway+NJ");
     }
     @Override
@@ -49,6 +47,7 @@ public class Main extends Activity {
     public void recievedCurrentWeatherInformation(DayWeather weather)
     {
         Log.e("Recieved Day Data ", weather.toString());
+//        setupCurrentWeatherInformation(weather);
         setupCurrentWeatherInformation(weather);
     }
 
@@ -56,12 +55,26 @@ public class Main extends Activity {
     public void recievedForecastWeatherInformation(ArrayList<DayWeather> weatherForecast)
     {
         Log.e("Recieved Forecast Data ", weatherForecast.toString());
+        setupForecastWeatherInformation(weatherForecast);
     }
 
-    public void setupCurrentWeatherInformation(DayWeather weather)
+    private void setupCurrentWeatherInformation(DayWeather weather)
     {
-        CurrentFragment current = CurrentFragment.create(weather);
+        WeatherFragment current = WeatherFragment.create(weather);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.current_weather, current, null).commit();
+        transaction.add(R.id.weatherForecastContainer, current, null).commit();
+    }
+
+    private void setupForecastWeatherInformation(ArrayList<DayWeather> weatherForecast)
+    {
+        if(weatherForecast != null)
+        {
+            for(DayWeather weather : weatherForecast)
+            {
+                WeatherFragment current = WeatherFragment.create(weather);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.add(R.id.weatherForecastContainer, current, null).commit();
+            }
+        }
     }
 }

@@ -49,7 +49,7 @@ public class CurrentWeatherResponse extends ResponseObject {
                 }
             }
             if (weatherIcon != null && weatherText != null && currentTemp != null && minTemp != null && maxTemp != null) {
-                weather = new DayWeather(weatherIcon, weatherText, minTemp, maxTemp, currentTemp);
+                weather = new DayWeather(weatherIcon, weatherText, minTemp, maxTemp, currentTemp,"");
             }
 
         } catch (IOException e) {

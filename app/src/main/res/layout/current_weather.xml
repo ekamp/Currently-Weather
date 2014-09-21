@@ -1,22 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/weather_blue_rectangle"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:paddingRight="5dp">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/weatherIcon"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/temperature"/>
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:id="@+id/dayOfTheWeek"
+        android:layout_alignParentTop="true"
+        />
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:id="@+id/weather"
+        android:maxLines="10"
+        android:singleLine="false"
+        android:layout_alignBottom="@+id/weatherIcon"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/weather"/>
+        android:background="@drawable/low_weather_container"
+        android:layout_alignLeft="@+id/highTempContainer"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:textSize="22sp"
+            android:padding="5dp"
+            android:id="@+id/Lowtemperature"/>
+    </RelativeLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/high_weather_container"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/highTempContainer"
+
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:textSize="22sp"
+            android:padding="5dp"
+            android:id="@+id/Highttemperature"/>
+     </RelativeLayout>
+
+</RelativeLayout>

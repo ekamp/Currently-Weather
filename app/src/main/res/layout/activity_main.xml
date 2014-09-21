@@ -2,28 +2,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".Main">
+    tools:context=".Main"
+    android:background="@color/standardAndroidBlue">
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/current_weather">-->
+    <!--</FrameLayout>-->
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/weatherForecastContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <FrameLayout
+        android:id="@+id/forecast_weather"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/current_weather">
-    </FrameLayout>
+        android:layout_height="wrap_content"></FrameLayout>
 
     <FrameLayout
+        android:id="@+id/commute"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/forecast_weather">
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/commute">
-    </FrameLayout>
+        android:layout_height="wrap_content"></FrameLayout>
 
 </RelativeLayout>
