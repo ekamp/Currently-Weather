@@ -72,6 +72,5 @@ public class GoogleMapsResponse extends ResponseObject {
         Log.e("Complete Maps Information ", commuteData.toString());
         //Send the information thru the bus back to our view
         Controller.getBus().post(commuteData);
-
     }
 }

@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.ekamp.morningcurrently.Fragments.ETAFragment;
 import com.ekamp.morningcurrently.Fragments.WeatherFragment;
 import com.squareup.otto.Subscribe;
 
@@ -21,7 +22,6 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Controller.getControllerInstance().collectForecastInformation("Shrewsbury,NJ");
-//        Controller.getControllerInstance().collectCurrentWeatherInformation("Shrewsbury,NJ");
         Controller.getControllerInstance().getCurrentCommute("148+Spruce+Drive+Shrewsbury+NJ+07702","15+Corporate+Place+Piscataway+NJ");
     }
     @Override
@@ -38,24 +38,22 @@ public class Main extends Activity {
     }
 
     @Subscribe
-    public void recievedMapsInformation(CommuteData commuteData)
-    {
-        Log.e("Recieved Commute Data ", commuteData.toString());
-    }
-
-    @Subscribe
     public void recievedCurrentWeatherInformation(DayWeather weather)
     {
-        Log.e("Recieved Day Data ", weather.toString());
-//        setupCurrentWeatherInformation(weather);
         setupCurrentWeatherInformation(weather);
     }
 
     @Subscribe
     public void recievedForecastWeatherInformation(ArrayList<DayWeather> weatherForecast)
     {
-        Log.e("Recieved Forecast Data ", weatherForecast.toString());
         setupForecastWeatherInformation(weatherForecast);
+    }
+
+    @Subscribe
+    public void recievedGoogleMapsCommuteInformation(CommuteData commuteData)
+    {
+        Log.e("Received Commute Data ", commuteData.toString());
+        setupCommuteData(commuteData);
     }
 
     private void setupCurrentWeatherInformation(DayWeather weather)
@@ -76,5 +74,12 @@ public class Main extends Activity {
                 transaction.add(R.id.weatherForecastContainer, current, null).commit();
             }
         }
+    }
+
+    private void setupCommuteData(CommuteData commuteData)
+    {
+        ETAFragment etaFragment = ETAFragment.create(commuteData);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.commuteContainer, etaFragment, null).commit();
     }
 }

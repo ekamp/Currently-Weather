@@ -9,7 +9,6 @@ import Model.ResponseParsing.ResponseObject;
 public class QueryGoogleMaps extends OKHttpQuery{
     @Override
     public ResponseObject parseResuts(String result) {
-
         return new GoogleMapsResponse(result);
     }
 }

@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by erikkamp on 8/31/14.
+ * Created by Erik Kamp on 8/31/14.
  */
 public class WeatherFragment extends Fragment{
 
@@ -79,12 +79,11 @@ public class WeatherFragment extends Fragment{
         Picasso.with(getActivity()).load(Controller.getControllerInstance().getWeatherIconURL(icon)).placeholder(R.drawable.weather_placeholder).error(R.drawable.weather_placeholder).fit().into(weatherIcon, new Callback() {
             @Override
             public void onSuccess() {
-                Log.e(getClass().getName(), "Picasso Successful");
+//                Log.e(getClass().getName(), "Picasso Successful");
             }
 
             @Override
             public void onError() {
-
                 Log.e(getClass().getName(), "Picasso ERROR : Not completed");
             }
         });

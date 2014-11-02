@@ -39,4 +39,11 @@
 
     <!--Android Themed Colors END-->
 
+    <!-- Shadow color START -->
+
+    <color name="shapeShadow">#46000000</color>
+
+    <!-- Shadow color END -->
+
+
 </resources>
