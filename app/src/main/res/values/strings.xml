@@ -9,4 +9,9 @@
     <string name="ETA">ETA</string>
     <string name="Distance">Distance</string>
 
+    <string name="preferencesKey">WeatherPreferences</string>
+    <string name="locationKey">LocationPreferences</string>
+
+    <string name="searchText">Click to change location</string>
+
 </resources>

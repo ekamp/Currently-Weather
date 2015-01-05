@@ -1,17 +1,15 @@
 package Controller;
 
-import android.content.Context;
-
+import com.google.common.base.Strings;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Bus;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
 /**
- * Created by erikkamp on 8/31/14.
- * Used to control all activities within the application. Everything must go thru the controller!
- * Once fired off by the controller the event bus (otto) will notify the view that the query is completen
+ * Used to control all activities within the application. Everything must go through the controller!
+ * Once fired off by the controller the event bus (otto) will notify the view that the query is complete
+ *
+ * @author Erik Kamp
+ * @since v1.0
  */
 public class Controller {
 
@@ -46,21 +44,42 @@ public class Controller {
 
     public void collectForecastInformation(String city) {
         QueryOpenWeatherForecast openWeatherQuery = new QueryOpenWeatherForecast();
-        openWeatherQuery.execute(Constants.gatherForecastData(city));
+        if (!Strings.isNullOrEmpty(city)) {
+            openWeatherQuery.execute(Constants.gatherForecastData(city));
+        } else {
+            openWeatherQuery.execute(Constants.gatherForecastData(Constants.defaultCity));
+        }
+    }
+
+    public void collectForecastInformation() {
+        QueryOpenWeatherForecast openWeatherQuery = new QueryOpenWeatherForecast();
+        openWeatherQuery.execute(Constants.gatherForecastData(Constants.defaultCity));
     }
 
     public void collectCurrentWeatherInformation(String city) {
         QueryOpenWeather openWeatherQuery = new QueryOpenWeather();
-        openWeatherQuery.execute(Constants.gatherCurrentWeatherData(city));
+        if (!Strings.isNullOrEmpty(city)) {
+            openWeatherQuery.execute(Constants.gatherCurrentWeatherData(city));
+        } else {
+            openWeatherQuery.execute(Constants.gatherCurrentWeatherData(Constants.defaultCity));
+        }
     }
 
     public void getCurrentCommute(String startAddress, String endAddress) {
         QueryGoogleMaps mapsQuery = new QueryGoogleMaps();
-        mapsQuery.execute(Constants.gatherETAData(startAddress, endAddress));
+        if (!Strings.isNullOrEmpty(endAddress) && !Strings.isNullOrEmpty(startAddress)) {
+            mapsQuery.execute(Constants.gatherETAData(startAddress, endAddress));
+        } else {
+            mapsQuery.execute(Constants.gatherETAData(Constants.defaultStartAddress, Constants.defaultEndAddress));
+        }
     }
 
-    public String getWeatherIconURL(String iconURL)
-    {
+    public void getCurrentCommute() {
+        QueryGoogleMaps mapsQuery = new QueryGoogleMaps();
+        mapsQuery.execute(Constants.gatherETAData(Constants.defaultStartAddress, Constants.defaultEndAddress));
+    }
+
+    public String getWeatherIconURL(String iconURL) {
         return Constants.getWeatherImage(iconURL);
     }
 }

@@ -13,7 +13,11 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Erik Kamp on 8/31/14.
+ * Fragment to be placed at the bottom of the view that will tell the estimated time of arrival
+ * for the user in terms of min.
+ *
+ * @author Erik Kamp
+ * @since v1.0
  */
 public class ETAFragment extends Fragment {
 

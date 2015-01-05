@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:background="@drawable/eta_red_rectange_container"
+    android:paddingLeft="7dp"
+    android:paddingTop="5dp"
     android:orientation="vertical">
 
     <TextView
