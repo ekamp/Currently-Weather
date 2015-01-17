@@ -4,6 +4,8 @@ import android.nfc.FormatException;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.google.common.base.Strings;
+
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -50,31 +52,33 @@ public class ForecastWeatherResponse extends ResponseObject {
     protected void pullDataDown() {
 
         try {
-            Reader reader = new StringReader(XMLDataString);
-            Document doc = builder.build(reader);
-            response = doc.getRootElement();
-            if (response != null) {
-                forecast = response.getChild(TAG_FORECAST);
-                if (forecast != null) {
-                    forecastList = forecast.getChildren();
-                    if (forecastList != null) {
-                        weeklyWeatherInformation = new ArrayList<DayWeather>();
-                        for (Element weather : forecastList) {
-                            day = weather.getAttributeValue(TAG_CURRENT_TEMP);
+            if (!Strings.isNullOrEmpty(XMLDataString)) {
+                Reader reader = new StringReader(XMLDataString);
+                Document doc = builder.build(reader);
+                response = doc.getRootElement();
+                if (response != null) {
+                    forecast = response.getChild(TAG_FORECAST);
+                    if (forecast != null) {
+                        forecastList = forecast.getChildren();
+                        if (forecastList != null) {
+                            weeklyWeatherInformation = new ArrayList<DayWeather>();
+                            for (Element weather : forecastList) {
+                                day = weather.getAttributeValue(TAG_CURRENT_TEMP);
 
-                            symbol = weather.getChild(TAG_SYMBOL);
-                            if (symbol != null) {
-                                symbolText = symbol.getAttributeValue(TAG_VAR);
-                                weatherStirng = symbol.getAttributeValue(TAG_WEATHER);
+                                symbol = weather.getChild(TAG_SYMBOL);
+                                if (symbol != null) {
+                                    symbolText = symbol.getAttributeValue(TAG_VAR);
+                                    weatherStirng = symbol.getAttributeValue(TAG_WEATHER);
+                                }
+                                temperature = weather.getChild(TAG_TEMP);
+                                if (temperature != null) {
+                                    minTemp = temperature.getAttributeValue(TAG_MIN);
+                                    maxTemp = temperature.getAttributeValue(TAG_MAX);
+                                    currentTemp = temperature.getAttributeValue(TAG_CURRENT_TEMP);
+                                }
+                                dayWeather = new DayWeather(symbolText, weatherStirng, minTemp, maxTemp, currentTemp, getDayFromDate(day));
+                                weeklyWeatherInformation.add(dayWeather);
                             }
-                            temperature = weather.getChild(TAG_TEMP);
-                            if (temperature != null) {
-                                minTemp = temperature.getAttributeValue(TAG_MIN);
-                                maxTemp = temperature.getAttributeValue(TAG_MAX);
-                                currentTemp = temperature.getAttributeValue(TAG_CURRENT_TEMP);
-                            }
-                            dayWeather = new DayWeather(symbolText, weatherStirng, minTemp, maxTemp, currentTemp, getDayFromDate(day));
-                            weeklyWeatherInformation.add(dayWeather);
                         }
                     }
                 }
@@ -84,10 +88,10 @@ public class ForecastWeatherResponse extends ResponseObject {
         } catch (JDOMException jd) {
             Log.e("Parse Error Jdom2", jd.toString());
         }
-        Log.e("Complete Forecast Weather Information ", weeklyWeatherInformation.toString());
 
-        Controller.getBus().post(weeklyWeatherInformation);
-
+        if(weeklyWeatherInformation != null){
+            Controller.getBus().post(weeklyWeatherInformation);
+        }
     }
 
     private String getDayFromDate(String dateText) {

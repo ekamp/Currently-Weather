@@ -1,7 +1,10 @@
 package com.ekamp.morningcurrently;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 
 /**
  * Overwriting the default application in order to manage sharedPreferences
@@ -23,15 +26,15 @@ public class WeatherApplication extends Application {
         return getSharedPreferences(getString(R.string.preferencesKey),0);
     }
 
-    public String getLocation(){
-        //TODO check that the strings are not null
-        return getSharedPreferences().getString(getString(R.string.locationKey),defaultLocation);
-    }
-
-    public void setLocation(String location){
-        sharedPreferencesEditor = getSharedPreferences().edit();
-        if(sharedPreferencesEditor != null){
-            sharedPreferencesEditor.putString(getString(R.string.locationKey),location);
+    public Location getLocation(){
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if(locationManager != null){
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location == null){
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+            return location;
         }
+        return null;
     }
 }

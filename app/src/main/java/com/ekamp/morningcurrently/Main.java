@@ -3,11 +3,11 @@ package com.ekamp.morningcurrently;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.util.Log;
 
 import com.ekamp.morningcurrently.Fragments.ETAFragment;
 import com.ekamp.morningcurrently.Fragments.WeatherFragment;
+import com.google.common.base.Strings;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import Controller.Controller;
 import Model.CommuteData;
 import Model.DayWeather;
+import Model.ResponseParsing.GetAddressEvent;
 
 /**
  *  Main activity that controls the lifecycle of the fragments and asks the controller for
@@ -30,6 +31,7 @@ public class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        requestUserAddress();
     }
 
     @Override
@@ -44,16 +46,12 @@ public class Main extends Activity {
         Controller.getBus().unregister(this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.searchable_menu, menu);
-
-        return true;
+    private void requestUserAddress(){
+        Controller.getControllerInstance().getCurrentAddress(this,((WeatherApplication)getApplication()).getLocation());
     }
 
-    private void requestForecastAndCommuteInformation(){
-        Controller.getControllerInstance().collectForecastInformation();
+    private void requestForecastAndCommuteInformation(String address){
+        Controller.getControllerInstance().collectForecastInformation(address);
         Controller.getControllerInstance().getCurrentCommute();
     }
 
@@ -68,6 +66,7 @@ public class Main extends Activity {
             for (DayWeather weather : weatherForecast) {
                 WeatherFragment current = WeatherFragment.create(weather);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.setCustomAnimations(R.anim.enter_left,R.anim.exit_left);
                 transaction.add(R.id.weatherForecastContainer, current, null).commit();
             }
         }
@@ -92,5 +91,12 @@ public class Main extends Activity {
     @Subscribe
     public void recievedGoogleMapsCommuteInformation(CommuteData commuteData) {
         setupCommuteData(commuteData);
+    }
+
+    @Subscribe
+    public void receivedCurrentUserAddress(GetAddressEvent addressEvent){
+        if(addressEvent != null && !Strings.isNullOrEmpty(addressEvent.getAddress())){
+            requestForecastAndCommuteInformation(addressEvent.getAddress());
+        }
     }
 }

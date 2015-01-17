@@ -1,8 +1,13 @@
 package Controller;
 
+import android.content.Context;
+import android.location.Location;
+
 import com.google.common.base.Strings;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Bus;
+
+import java.util.ResourceBundle;
 
 /**
  * Used to control all activities within the application. Everything must go through the controller!
@@ -42,10 +47,10 @@ public class Controller {
         return ottoBus;
     }
 
-    public void collectForecastInformation(String city) {
+    public void collectForecastInformation(String address) {
         QueryOpenWeatherForecast openWeatherQuery = new QueryOpenWeatherForecast();
-        if (!Strings.isNullOrEmpty(city)) {
-            openWeatherQuery.execute(Constants.gatherForecastData(city));
+        if (!Strings.isNullOrEmpty(address)) {
+            openWeatherQuery.execute(Constants.gatherForecastData(address));
         } else {
             openWeatherQuery.execute(Constants.gatherForecastData(Constants.defaultCity));
         }
@@ -81,5 +86,9 @@ public class Controller {
 
     public String getWeatherIconURL(String iconURL) {
         return Constants.getWeatherImage(iconURL);
+    }
+
+    public void getCurrentAddress(Context context,Location location) {
+        new GetAddressTask(context).execute(location);
     }
 }
