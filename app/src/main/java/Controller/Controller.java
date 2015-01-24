@@ -7,8 +7,6 @@ import com.google.common.base.Strings;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Bus;
 
-import java.util.ResourceBundle;
-
 /**
  * Used to control all activities within the application. Everything must go through the controller!
  * Once fired off by the controller the event bus (otto) will notify the view that the query is complete

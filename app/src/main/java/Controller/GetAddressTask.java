@@ -53,14 +53,18 @@ public class GetAddressTask extends
         // Create a list to contain the result address
         List<Address> addresses = null;
         try {
-            addresses = geocoder.getFromLocation(loc.getLatitude(),
-                    loc.getLongitude(), 1);
+            if(loc != null){
+                addresses = geocoder.getFromLocation(loc.getLatitude(),
+                        loc.getLongitude(), 1);
+            }else{
+                return "address not found";
+            }
         } catch (IOException e1) {
             Log.e("LocationSampleActivity",
                     "IO Exception in getFromLocation()");
             e1.printStackTrace();
             return ("IO Exception trying to get address");
-        } catch (IllegalArgumentException e2) {
+        } catch (Exception e2) {
             // Error message to post in the log
             String errorString = "Illegal arguments " +
                     Double.toString(loc.getLatitude()) +

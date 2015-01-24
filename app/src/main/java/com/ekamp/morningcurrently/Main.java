@@ -3,7 +3,6 @@ package com.ekamp.morningcurrently;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.ekamp.morningcurrently.Fragments.ETAFragment;
 import com.ekamp.morningcurrently.Fragments.WeatherFragment;
@@ -47,7 +46,7 @@ public class Main extends Activity {
     }
 
     private void requestUserAddress(){
-        Controller.getControllerInstance().getCurrentAddress(this,((WeatherApplication)getApplication()).getLocation());
+        Controller.getControllerInstance().getCurrentAddress(this,WeatherApplication.get().getLocation());
     }
 
     private void requestForecastAndCommuteInformation(String address){
@@ -66,7 +65,6 @@ public class Main extends Activity {
             for (DayWeather weather : weatherForecast) {
                 WeatherFragment current = WeatherFragment.create(weather);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.setCustomAnimations(R.anim.enter_left,R.anim.exit_left);
                 transaction.add(R.id.weatherForecastContainer, current, null).commit();
             }
         }

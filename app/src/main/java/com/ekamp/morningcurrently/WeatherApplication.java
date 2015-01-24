@@ -2,7 +2,6 @@ package com.ekamp.morningcurrently;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -14,24 +13,24 @@ import android.location.LocationManager;
  */
 public class WeatherApplication extends Application {
 
-    private static final String defaultLocation = "New York";
-    private SharedPreferences.Editor sharedPreferencesEditor;
+    private static WeatherApplication weatherApplicationInstance;
 
     @Override
     public void onCreate() {
+        weatherApplicationInstance = this;
         super.onCreate();
     }
 
-    public SharedPreferences getSharedPreferences() {
-        return getSharedPreferences(getString(R.string.preferencesKey),0);
+    public static WeatherApplication get() {
+        return weatherApplicationInstance;
     }
 
-    public Location getLocation(){
+    public Location getLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if(locationManager != null){
+        if (locationManager != null) {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(location == null){
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null) {
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             }
             return location;
         }
