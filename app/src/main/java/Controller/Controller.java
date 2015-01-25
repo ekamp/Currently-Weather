@@ -83,8 +83,9 @@ public class Controller {
         String currentCommuteLocation = "";
         if(!Strings.isNullOrEmpty(currentCommuteLocation = WeatherApplication.get().getCurrentCommuteLocation())){
             mapsQuery.execute(Constants.gatherETAData(currentLocation, currentCommuteLocation));
+        }else{
+            mapsQuery.execute(Constants.gatherETAData(Constants.defaultStartAddress, Constants.defaultEndAddress));
         }
-        mapsQuery.execute(Constants.gatherETAData(Constants.defaultStartAddress, Constants.defaultEndAddress));
     }
 
     public String getWeatherIconURL(String iconURL) {

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 
+import Model.Utils.FormatUtils;
+
 /**
  * Weather application override to manage sharedPrefs and User location
  *
@@ -40,7 +42,7 @@ public class WeatherApplication extends Application {
     public boolean setCurrentCommuteLocation(String location) {
         if ((sharedPreferences = getSharedPreferences(sharedPreferencesKey, 0)) != null) {
             sharedPreferencesEditor = sharedPreferences.edit();
-            sharedPreferencesEditor.putString(sharedPreferencesCommuteLocationKey, location);
+            sharedPreferencesEditor.putString(sharedPreferencesCommuteLocationKey, FormatUtils.formatUserLocation(location));
             sharedPreferencesEditor.commit();
             return true;
         }

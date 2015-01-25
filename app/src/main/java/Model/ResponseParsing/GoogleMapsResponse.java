@@ -2,6 +2,8 @@ package Model.ResponseParsing;
 
 import android.util.Log;
 
+import com.google.common.base.Strings;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -32,11 +34,12 @@ public class GoogleMapsResponse extends ResponseObject {
 
     @Override
     protected void pullDataDown() {
-//        Log.e("Response Map",XMLDataString);
-
         Element response, summary, route, leg, distance, time;
         String timeText = null, distanceText = null, summaryText = null;
         try {
+            if(Strings.isNullOrEmpty(XMLDataString)){
+                return;
+            }
             Reader reader = new StringReader(XMLDataString);
             Document doc = builder.build(reader);
             response = doc.getRootElement();
@@ -68,9 +71,6 @@ public class GoogleMapsResponse extends ResponseObject {
         } catch (JDOMException jd) {
             Log.e("Parse Error Jdom2", jd.toString());
         }
-
-        Log.e("Complete Maps Information ", commuteData.toString());
-        //Send the information thru the bus back to our view
         Controller.getBus().post(commuteData);
     }
 }

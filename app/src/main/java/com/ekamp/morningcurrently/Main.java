@@ -90,7 +90,7 @@ public class Main extends FragmentActivity {
 
     private void requestForecastAndCommuteInformation(String address) {
         Controller.getControllerInstance().collectForecastInformation(address);
-        Controller.getControllerInstance().getCurrentCommute();
+        Controller.getControllerInstance().getCurrentCommute(address);
     }
 
     private void setupCurrentWeatherInformation(DayWeather weather) {

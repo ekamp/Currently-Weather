@@ -24,10 +24,10 @@ import butterknife.InjectView;
 public class EditCommuteLocationDialogFragment extends BaseDialogFragment {
 
     @InjectView(R.id.edit_commute_edittext)
-    private EditText commuteEditText;
+    EditText commuteEditText;
 
     @InjectView(R.id.edit_commute_submit)
-    private Button commuteSubmit;
+    Button commuteSubmit;
 
     public static EditCommuteLocationDialogFragment newInstance() {
         return new EditCommuteLocationDialogFragment();
