@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General Application settings -->
     <string name="app_name">MorningCurrently</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Directions Strings -->
     <string name="RecommendationText">"Take the </string>
     <string name="ETA">ETA</string>
     <string name="Distance">Distance</string>
 
+    <!-- Preferences -->
     <string name="preferencesKey">WeatherPreferences</string>
     <string name="locationKey">LocationPreferences</string>
 
-    <string name="searchText">Click to change location</string>
+    <!-- GPS Dialog -->
+    <string name="no_gps_dialog_title">GPS Unavailable</string>
+    <string name="no_gps_dialog_message">Please turn on your gps in settings and try again.</string>
+    <string name="continue_dialog_message">Continue</string>
 
 </resources>

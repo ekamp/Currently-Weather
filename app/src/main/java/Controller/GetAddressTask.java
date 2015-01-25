@@ -95,14 +95,16 @@ public class GetAddressTask extends
             // Return the text
             return addressText;
         } else {
-            return "No address found";
+            return null;
         }
     }
 
     @Override
     protected void onPostExecute(String address) {
-        if(!Strings.isNullOrEmpty(address)){
+        if(!Strings.isNullOrEmpty(address) && !address.equalsIgnoreCase("address not found")){
             Controller.getBus().post(new GetAddressEvent(FormatUtils.formatUserLocation(address)));
+        }else{
+            Controller.getBus().post(new GetAddressEvent(FormatUtils.formatUserLocation("")));
         }
     }
 }

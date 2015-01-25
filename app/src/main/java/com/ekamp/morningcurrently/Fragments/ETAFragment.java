@@ -1,7 +1,7 @@
 package com.ekamp.morningcurrently.Fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +20,8 @@ import butterknife.InjectView;
  * @since v1.0
  */
 public class ETAFragment extends Fragment {
+
+    public static final String TAG = "ETAFragment";
 
     @InjectView(R.id.etaTime)
     TextView estimatedTime;

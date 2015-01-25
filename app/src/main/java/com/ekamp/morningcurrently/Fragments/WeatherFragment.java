@@ -1,7 +1,7 @@
 package com.ekamp.morningcurrently.Fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,9 @@ import butterknife.InjectView;
 /**
  * Created by Erik Kamp on 8/31/14.
  */
-public class WeatherFragment extends Fragment{
+public class WeatherFragment extends Fragment {
+
+    public static final String TAG = "WeatherFragment";
 
     @InjectView(R.id.weatherIcon)
     ImageView weatherIcon;
