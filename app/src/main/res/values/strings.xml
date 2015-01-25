@@ -20,4 +20,10 @@
     <string name="no_gps_dialog_message">Please turn on your gps in settings and try again.</string>
     <string name="continue_dialog_message">Continue</string>
 
+    <!-- Edit Commute Location -->
+    <string name="edit_commute_title">Edit Commute</string>
+    <string name="edit_commute_message">Please enter in your daily commute location, such as 123 Main Street New York,NY</string>
+    <string name="dialog_submit">Submit</string>
+    <string name="edit_commute_hint">Commute Address</string>
+
 </resources>

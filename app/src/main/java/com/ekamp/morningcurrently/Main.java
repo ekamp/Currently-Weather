@@ -5,11 +5,15 @@ import android.animation.AnimatorListenerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.ekamp.morningcurrently.Fragments.DialogFragments.EditCommuteLocationDialogFragment;
 import com.ekamp.morningcurrently.Fragments.ETAFragment;
-import com.ekamp.morningcurrently.Fragments.WeatherDialogFragment;
+import com.ekamp.morningcurrently.Fragments.DialogFragments.WeatherDialogFragment;
 import com.ekamp.morningcurrently.Fragments.WeatherFragment;
 import com.google.common.base.Strings;
 import com.squareup.otto.Subscribe;
@@ -54,6 +58,30 @@ public class Main extends FragmentActivity {
     public void onPause() {
         super.onPause();
         Controller.getBus().unregister(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.edit_commute, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.edit_commute:
+                editCommuteData();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void editCommuteData() {
+        EditCommuteLocationDialogFragment editCommuteLocationDialogFragment = EditCommuteLocationDialogFragment.newInstance();
+        editCommuteLocationDialogFragment.show(getSupportFragmentManager());
     }
 
     private void requestUserAddress() {

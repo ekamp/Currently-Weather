@@ -3,6 +3,7 @@ package Controller;
 import android.content.Context;
 import android.location.Location;
 
+import com.ekamp.morningcurrently.WeatherApplication;
 import com.google.common.base.Strings;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Bus;
@@ -77,8 +78,12 @@ public class Controller {
         }
     }
 
-    public void getCurrentCommute() {
+    public void getCurrentCommute(String currentLocation) {
         QueryGoogleMaps mapsQuery = new QueryGoogleMaps();
+        String currentCommuteLocation = "";
+        if(!Strings.isNullOrEmpty(currentCommuteLocation = WeatherApplication.get().getCurrentCommuteLocation())){
+            mapsQuery.execute(Constants.gatherETAData(currentLocation, currentCommuteLocation));
+        }
         mapsQuery.execute(Constants.gatherETAData(Constants.defaultStartAddress, Constants.defaultEndAddress));
     }
 

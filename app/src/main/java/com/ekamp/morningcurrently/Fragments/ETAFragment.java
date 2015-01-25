@@ -57,13 +57,9 @@ public class ETAFragment extends Fragment {
         ViewGroup root = (ViewGroup)inflater.inflate(R.layout.eta, container, false);
         ButterKnife.inject(this, root);
 
-        /*VIEW SETUP START */
-
         recommendedRoute.setText(this.getString(R.string.RecommendationText) + " "+ summary);
         estimatedTime.setText(this.getString(R.string.ETA) +" "+ timeTaken);
         distanceDisplay.setText(this.getString(R.string.Distance) + " "+ distance);
-
-        /*VIEW SETUP END */
 
         return root;
     }

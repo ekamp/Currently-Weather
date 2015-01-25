@@ -2,11 +2,12 @@ package com.ekamp.morningcurrently;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 
 /**
- * Overwriting the default application in order to manage sharedPreferences
+ * Weather application override to manage sharedPrefs and User location
  *
  * @author Erik Kamp
  * @since v1.0
@@ -14,6 +15,10 @@ import android.location.LocationManager;
 public class WeatherApplication extends Application {
 
     private static WeatherApplication weatherApplicationInstance;
+    private static final String sharedPreferencesKey = "SHARED_PREFS_KEY";
+    private static final String sharedPreferencesCommuteLocationKey = "COMMUTE_LOCATION_KEY";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor sharedPreferencesEditor;
 
     @Override
     public void onCreate() {
@@ -23,6 +28,23 @@ public class WeatherApplication extends Application {
 
     public static WeatherApplication get() {
         return weatherApplicationInstance;
+    }
+
+    public String getCurrentCommuteLocation() {
+        if ((sharedPreferences = getSharedPreferences(sharedPreferencesKey, 0)) != null) {
+            return sharedPreferences.getString(sharedPreferencesCommuteLocationKey, "");
+        }
+        return "";
+    }
+
+    public boolean setCurrentCommuteLocation(String location) {
+        if ((sharedPreferences = getSharedPreferences(sharedPreferencesKey, 0)) != null) {
+            sharedPreferencesEditor = sharedPreferences.edit();
+            sharedPreferencesEditor.putString(sharedPreferencesCommuteLocationKey, location);
+            sharedPreferencesEditor.commit();
+            return true;
+        }
+        return false;
     }
 
     public Location getLocation() {

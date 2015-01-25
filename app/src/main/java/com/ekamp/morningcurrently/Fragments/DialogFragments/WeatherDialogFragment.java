@@ -1,16 +1,14 @@
-package com.ekamp.morningcurrently.Fragments;
+package com.ekamp.morningcurrently.Fragments.DialogFragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 
 /**
  * Dialog to be used throughout the application to notify the user about application events
  */
-public class WeatherDialogFragment extends DialogFragment {
+public class WeatherDialogFragment extends BaseDialogFragment {
 
 
     private static final String ARG_MESSAGE_KEY = "argMessageKey",
@@ -96,11 +94,5 @@ public class WeatherDialogFragment extends DialogFragment {
         public void onPositiveClick();
 
         public void onNegativeClick();
-    }
-
-    public void show(FragmentManager fragmentManager) {
-        if (fragmentManager == null)
-            return;
-        super.show(fragmentManager, getTag());
     }
 }
